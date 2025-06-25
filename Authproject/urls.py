@@ -34,10 +34,10 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('authapp/', include('Authapp.urls')),
+    path('', include('Authapp.urls')),
     # path('', RedirectView.as_view(url='authapp')),
-    path('auth/', include('dj_rest_auth.urls')),
-    path('auth/registration', include('dj_rest_auth.registration.urls')),
+    # path('auth/', include('dj_rest_auth.urls')),
+    # path('auth/registration', include('dj_rest_auth.registration.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

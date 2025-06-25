@@ -22,21 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-un%b1c5^nm^w!()s-e55@5ua9-&_191shhp)re*+36xdimir_y'
+SECRET_KEY = 'django-insecure-un%b1c5^nm^w!()s-e55@5ua9-&_191shhp)re*+36xdimir_y'
 
 # # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 import os
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY") 
+# SECRET_KEY = os.environ.get("SECRET_KEY") 
 # 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true" #True
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true" #True
 # 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 # 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'drf_spectacular',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'dj_rest_auth',
