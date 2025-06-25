@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiParameter
 
 class UserSerializers(ModelSerializer):
     class Meta:
