@@ -35,7 +35,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authapp/', include('Authapp.urls')),
-    path('', RedirectView.as_view(url='quote')),
+    path('', RedirectView.as_view(url='authapp')),
     path('api/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
