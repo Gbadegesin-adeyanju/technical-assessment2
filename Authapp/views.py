@@ -12,14 +12,14 @@ from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
 
 
-class authenticationViewset(viewsets.ModelViewSet):
+class RegisterViewset(APIView):
 
     serializer_class = UserSerializers
     permission_classes = [permissions.AllowAny]
     queryset = User.objects.all()
 
-    @action(detail=False, methods=["post"], url_path="signup")
-    def register(self, request):
+    @swagger_auto_schema(request_body=UserSerializers)
+    def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
             user = User.objects.create_user(**serializer.validated_data)
@@ -35,6 +35,7 @@ class LoginView(APIView):
     @swagger_auto_schema(request_body=LoginSerializers)
     def post(self, request):
         serializer = LoginSerializers(data=request.data)
+
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
@@ -43,51 +44,22 @@ class LoginView(APIView):
         
         user = auth.authenticate(username=username, password=password)
 
-        if user and user.is_active:
+        if user:
             refresh = RefreshToken.for_user(user)
             return Response({
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
             })
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-    
-# class LoginViewset(viewsets.ViewSet):
-
-#     # serializer_class = LoginSerializers
-#     permission_classes = [permissions.AllowAny]
-
-#     @action(detail=False, methods=["post"])
-#     def login(self, request):
-#         serializer = self.serializer_class(data=request.data)
-#         if not serializer.is_valid():
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-#         username = serializer.validated_data['username']
-#         password = serializer.validated_data['password']
-        
-#         user = auth.authenticate(username=username, password=password)
-
-#         # if user is not None:
-#         #     auth.login(request, user)
-
-#         if user and user.is_active:
-#             refresh = RefreshToken.for_user(user)
-#             return Response({
-#                 "refresh": str(refresh),
-#                 "access": str(refresh.access_token),
-#             })
-#         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-
-class profileViewset(viewsets.ModelViewSet):
+class profileViewset(APIView):
 
     serializer_class = UserSerializers
     permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
 
-    @action(detail=False, methods=["GET"])
-    def profile(self, request):
+    def get(self, request):
         user = request.user
         if user.is_authenticated:
             serializer = self.serializer_class(user)

@@ -1,15 +1,10 @@
 from django.urls import path, include
-from .views import authenticationViewset, profileViewset, LoginView
-from rest_framework.routers import DefaultRouter
-
-
-router = DefaultRouter()
-router.register(r'authapp/', authenticationViewset, basename='authuser')
-router.register(r'profile/', profileViewset, basename='profile')
+from .views import RegisterViewset, profileViewset, LoginView
 
 
 
 urlpatterns = [
-    path('', include(router.urls)), 
+    path('register/', RegisterViewset.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
+    path('profile/', profileViewset.as_view(), name='profile'),
 ]
