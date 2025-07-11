@@ -19,3 +19,4 @@ python manage.py migrate
 # Runserver
 python manage.py runserver
 
+swagger link: https://authapp-n3z4.onrender.com/swagger
